@@ -114,7 +114,7 @@ def main():
                     try:
                         z = int(input("Insert the index where the deletion should end: "))
 
-                        if z > y and z <= len(lista.lista_numere):
+                        if z >= y and z <= len(lista.lista_numere):
                             aux = False
                     except:
                         print("Input invalid or out of range, Please try again")
@@ -149,7 +149,117 @@ def main():
 
                     if absVal == 10:
                         print (lista.lista_numere[i])
-                   
+
+            #Iteratie 2     
+            case 10:
+                y = -1
+                aux = True
+                while aux:
+                    try:
+                        y = int(input("Insert the index where the deletion should start: "))
+
+                        if y >= 0 and y <= len(lista.lista_numere):
+                            aux = False
+                    except:
+                        print("Input invalid or out of range, Please try again")
+
+                z = -1
+                aux = True
+                while aux:
+                    try:
+                        z = int(input("Insert the index where the deletion should end: "))
+
+                        if z >= y and z <= len(lista.lista_numere):
+                            aux = False
+                    except:
+                        print("Input invalid or out of range, Please try again")
+                
+                sumW = 0
+                sumI = 0
+                for i in range(y , z + 1):
+                    unpacked = lista.unpackNumber(lista.lista_numere[i])
+                    sumW += unpacked[0]
+                    if len(unpacked) == 2:
+                        sumI += unpacked[1]
+
+                print(f"\nThe sum is: {sumW} {sumI}i\n")
+            
+            case 11:
+                y = -1
+                aux = True
+                while aux:
+                    try:
+                        y = int(input("Insert the index where the deletion should start: "))
+
+                        if y >= 0 and y <= len(lista.lista_numere):
+                            aux = False
+                    except:
+                        print("Input invalid or out of range, Please try again")
+
+                z = -1
+                aux = True
+                while aux:
+                    try:
+                        z = int(input("Insert the index where the deletion should end: "))
+
+                        if z >= y and z <= len(lista.lista_numere):
+                            aux = False
+                    except:
+                        print("Input invalid or out of range, Please try again")
+                
+                multiplier = lista.lista_numere[y]
+                for i in range(y + 1 , z + 1):
+                    unpacked1 = lista.unpackNumber(multiplier)
+                    unpacked2 = lista.unpackNumber(lista.lista_numere[i])
+                    
+                    whole = (unpacked1[0] * unpacked1[0] - unpacked1[1] * unpacked2[1])
+                    imaginary = (unpacked1[0] * unpacked2[1] - unpacked1[1] * unpacked2[0])
+
+                    multiplier = f"{whole}+{imaginary}i"
+
+                print(f"\nThe multiplication is: {multiplier}\n")
+
+            case 12:
+                y = -1
+                aux = True
+                while aux:
+                    try:
+                        y = int(input("Insert the index where the deletion should start: "))
+
+                        if y >= 0 and y <= len(lista.lista_numere):
+                            aux = False
+                    except:
+                        print("Input invalid or out of range, Please try again")
+
+                z = -1
+                aux = True
+                while aux:
+                    try:
+                        z = int(input("Insert the index where the deletion should end: "))
+
+                        if z >= y and z <= len(lista.lista_numere):
+                            aux = False
+                    except:
+                        print("Input invalid or out of range, Please try again")
+                
+                list_to_sort = []
+                for k , v in lista.lista_numere.items():
+                    list_to_sort.append(v)
+
+                list_to_sort = list_to_sort[y:z + 1]
+                
+                for i in range(y , z):
+                    for j in range(i , z + 1):
+                        elem1 = lista.unpackNumber(list_to_sort[i])
+                        elem2 = lista.unpackNumber(list_to_sort[j])
+                        if elem1[1] > elem2[1]:
+                            list_to_sort[i], list_to_sort[j] = list_to_sort[j], list_to_sort[i]
+
+                print(f"\n{list_to_sort}\n")
+
+            case 13:
+                lista.lista_numere = lista.filterPrimeNums(lista_curenta=lista.lista_numere , lista=lista)
+                print(f"\n{lista.lista_numere}\n")
             case 0:
                 running = False
 
