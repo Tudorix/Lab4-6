@@ -1,5 +1,8 @@
+import math
+
 class ListaComplexe:
     lista_numere = {}
+    list_stack = {}
     
     def addAtTheEnd(self,lista_curenta, item) -> dict:
         """
@@ -12,6 +15,10 @@ class ListaComplexe:
         return lista_curenta
     
     def isPrime(self, n):
+        """
+        Checks if a number is prime
+        n - int
+        """
         if n < 2: return False
         if n % 2 == 0 and n != 2: return False
         for i in range(3 , int(n/2) + 1):
@@ -20,13 +27,41 @@ class ListaComplexe:
         return True
     
     def filterPrimeNums(self, lista_curenta , lista):
+        """
+        Filteres out the elements with a prime whole number
+        lista_curenta - dict
+        lista - type = Lista
+        """
         filtered_dict = {}
         index = 0
         i = 0
         lim = len(lista_curenta)
         while i < lim:
-            unpacked = lista.unpackNumber(lista_curenta[i])
-            if not lista.isPrime(unpacked[0]):
+            if not lista.isPrime(lista_curenta[i][0]):
+                filtered_dict[index] = lista_curenta[i]
+                index += 1
+            i += 1
+                
+        return filtered_dict
+    
+    def filterCondition(self, lista_curenta , lista, case, number):
+        """
+        Filteres out the elements that are <,=,> that a given number
+        lista_curenta - dict
+        lista - type = Lista
+        case - int
+        number - int
+        """
+        filtered_dict = {}
+        index = 0
+        i = 0
+        lim = len(lista_curenta)
+        while i < lim:
+            w = lista_curenta[i][0]
+            z = lista_curenta[i][1]
+
+            absVal = math.sqrt(pow(w , 2) + pow(z , 2))
+            if (case == 1 and absVal >= number) or (case == 2 and absVal != number) or (case == 3 and absVal <= number):
                 filtered_dict[index] = lista_curenta[i]
                 index += 1
             i += 1
@@ -96,56 +131,3 @@ class ListaComplexe:
                 lista_curenta[k] = newItem
 
         return lista_curenta   
-
-    def checkComplexNumber(self,number):
-        """
-        Check if the input is a correct complex number of format: "a" or "a+bi"
-        number - string
-        Return - true if the number is correct, false ohterwise
-        """
-        if " " in number: return False
-        if '+' in number:
-            parts = number.split('+')
-            
-            try:
-                parts[0] = int(parts[0])
-            except:
-                return False
-            
-            if not "i" in parts[1]:
-                return False
-            
-            parts[1] = parts[1].split('i')
-            
-            try:
-                parts[1][0] = int(parts[1][0])
-            except:
-                return False
-
-        else:
-            try:
-                number = int(number)
-            except:
-                return False
-            
-        return True
-    
-    def unpackNumber(self, x):
-        """
-        Covert the complex number to integers
-        x - string
-        Return - list of integers
-        """
-        parts = x.split('+')
-        parts[0] = int(parts[0])
-            
-        if len(parts) == 2:
-            parts[1] = parts[1].split("i")
-            parts[1] = int(parts[1][0]) 
-        else:
-            parts.append(0)
-            
-        return parts
-        
-
-

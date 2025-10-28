@@ -1,5 +1,6 @@
 import lista
 import appController
+from appController import *
 import math
 
 lista = lista.ListaComplexe()
@@ -8,6 +9,7 @@ app = appController.Contoller()
 def main():
     app.print_initial()
     running = True
+    stack_index = 0
     
     while running :
         app.print_menu()
@@ -17,252 +19,167 @@ def main():
             case 1:
                 print(lista.lista_numere)
             case 2:
-                x = input("Insert a complex number to add (format: a+bi) : ")
-                while not lista.checkComplexNumber(str(x)):
-                    print("The input was not correct. Please try again")
-                    x = input("(format: a+bi) : ")
-                
+                print(lista.lista_numere)
+                lista.list_stack[stack_index] = lista.lista_numere.copy()
+                stack_index += 1
+
+                x = getComplexNumber()
                 lista.lista_numere = lista.addAtTheEnd(lista_curenta=lista.lista_numere, item=x)
             case 3:
-                x = input("Insert a complex number to add (format: a+bi) : ")
-                while not lista.checkComplexNumber(str(x)):
-                    print("The input was not correct. Please try again")
-                    x = input("(format: a+bi) : ")
+                print(lista.lista_numere)
+                lista.list_stack[stack_index] = lista.lista_numere.copy()
+                stack_index += 1
 
-                y = -1
-                aux = True
-                while aux:
-                    try:
-                        y = int(input("Insert the index where the number should be placed: "))
-
-                        if y >= 0 and y <= len(lista.lista_numere):
-                            aux = False
-                            print("Input invalid or out of range, Please try again")
-                    except:
-                        pass
+                x = getComplexNumber()
+                y = getIndex(0 , len(lista.lista_numere))
                 lista.lista_numere = lista.addAtIndex(lista_curenta=lista.lista_numere,item=x , index=y)
             case 4:
                 if len(lista.lista_numere) > 0:
-                    y = -1
-                    aux = True
-                    while aux:
-                        try:
-                            y = int(input("Insert the index where the number should be deleted: "))
+                    print(lista.lista_numere)
+                    lista.list_stack[stack_index] = lista.lista_numere.copy()
+                    stack_index += 1
 
-                            if y >= 0 and y <= len(lista.lista_numere):
-                                aux = False
-                        except:
-                            print("Input invalid or out of range, Please try again")
-                            pass
+                    y = getIndex(0 , len(lista.lista_numere))
                     lista.lista_numere = lista.deleteAtIndex(lista_curenta=lista.lista_numere,index=y)
                 else:
                     print("The list has no numbers currently")
             case 5:
                 if len(lista.lista_numere) > 0:
-                    y = -1
-                    aux = True
-                    while aux:
-                        try:
-                            y = int(input("Insert the index where the deletion should start: "))
-
-                            if y >= 0 and y <= len(lista.lista_numere):
-                                aux = False
-                        except:
-                            print("Input invalid or out of range, Please try again")
-
-                    z = -1
-                    aux = True
-                    while aux:
-                        try:
-                            z = int(input("Insert the index where the deletion should end: "))
-
-                            if z > y and z <= len(lista.lista_numere):
-                                aux = False
-                        except:
-                            print("Input invalid or out of range, Please try again")
-
+                    print(lista.lista_numere)
+                    lista.list_stack[stack_index] = lista.lista_numere.copy()
+                    stack_index += 1
+                    y = getIndex(0 , len(lista.lista_numere))
+                    z = getIndex(y , len(lista.lista_numere))
+                        
                     lista.lista_numere = lista.deleteInterval(lista_curenta=lista.lista_numere,indexS=y, indexF=z)
                 else:
                     print("The list has no numbers currently")
             case 6:
-                x = input("Insert a complex numer to replace (format: a+bi) : ")
-                while not lista.checkComplexNumber(str(x)):
-                    print("The input was not correct. Please try again")
-                    x = input("(format: a+bi) : ")
-
-                y = input("Insert the new value (format: a+bi) : ")
-                while not lista.checkComplexNumber(str(x)):
-                    print("The input was not correct. Please try again")
-                    x = input("(format: a+bi) : ")
-                
-                lista.lista_numere = lista.replaceItem(lista_curenta=lista.lista_numere,oldItem=x, newItem=y)
+                if len(lista.lista_numere) > 0:
+                    print(lista.lista_numere)
+                    lista.list_stack[stack_index] = lista.lista_numere.copy()
+                    stack_index += 1
+                    x = getComplexNumber()
+                    y = getComplexNumber()
+                    
+                    lista.lista_numere = lista.replaceItem(lista_curenta=lista.lista_numere,oldItem=x, newItem=y)
+                else:
+                    print("The list has no numbers currently")
             case 7:
-                y = -1
-                aux = True
-                while aux:
-                    try:
-                        y = int(input("Insert the index where the deletion should start: "))
+                if len(lista.lista_numere) > 0:
+                    y = getIndex(0, len(lista.lista_numere))
+                    z = getIndex(y, len(lista.lista_numere))
 
-                        if y >= 0 and y <= len(lista.lista_numere):
-                            aux = False
-                    except:
-                        print("Input invalid or out of range, Please try again")
-
-                z = -1
-                aux = True
-                while aux:
-                    try:
-                        z = int(input("Insert the index where the deletion should end: "))
-
-                        if z >= y and z <= len(lista.lista_numere):
-                            aux = False
-                    except:
-                        print("Input invalid or out of range, Please try again")
-                
-                for i in range(y , z + 1):
-                    unpacked = lista.unpackNumber(lista.lista_numere[i])
-                    if(len(unpacked) == 2):
-                        print(unpacked[1],'i')
-                    else:
-                        print("0 i")
-                
+                    print("\n")
+                    for i in range(y , z + 1):
+                        print(lista.lista_numere[i][1])
+                    print("\n")
+                else:
+                    print("The list has no numbers currently")
             case 8:
-                for i in range(0 , len(lista.lista_numere)):
-                    unpacked = lista.unpackNumber(lista.lista_numere[i])
-                    absVal = 0
-                    if(len(unpacked) == 2):
-                        absVal = math.sqrt(pow(unpacked[0] , 2) + pow(unpacked[1] , 2))
-                    else:
-                        absVal = math.sqrt(pow(unpacked[0] , 2))
+                if len(lista.lista_numere) > 0:
+                    for i in range(0 , len(lista.lista_numere)):
+                        w = lista.lista_numere[i][0]
+                        z = lista.lista_numere[i][1]
 
-                    if absVal < 10:
-                        print (lista.lista_numere[i])
+                        absVal = 0
+                        absVal = math.sqrt(pow(w , 2) + pow(z , 2))
+
+                        if absVal < 10:
+                            print (lista.lista_numere[i])
+                else:
+                    print("The list has no numbers currently")
                    
             case 9:
-                for i in range(0 , len(lista.lista_numere)):
-                    unpacked = lista.unpackNumber(lista.lista_numere[i])
-                    absVal = 0
-                    if(len(unpacked) == 2):
-                        absVal = math.sqrt(pow(unpacked[0] , 2) + pow(unpacked[1] , 2))
-                    else:
-                        absVal = math.sqrt(pow(unpacked[0] , 2))
+                if len(lista.lista_numere) > 0:
+                    for i in range(0 , len(lista.lista_numere)):
+                        w = lista.lista_numere[i][0]
+                        z = lista.lista_numere[i][1]
 
-                    if absVal == 10:
-                        print (lista.lista_numere[i])
+                        absVal = 0
+                        absVal = math.sqrt(pow(w , 2) + pow(z , 2))
+
+                        if absVal == 10:
+                            print (lista.lista_numere[i])
+                else:
+                    print("The list has no numbers currently")
 
             #Iteratie 2     
             case 10:
-                y = -1
-                aux = True
-                while aux:
-                    try:
-                        y = int(input("Insert the index where the deletion should start: "))
+                if len(lista.lista_numere) > 0:
+                    y = getIndex(0, len(lista.lista_numere))
+                    z = getIndex(y, len(lista.lista_numere))
 
-                        if y >= 0 and y <= len(lista.lista_numere):
-                            aux = False
-                    except:
-                        print("Input invalid or out of range, Please try again")
+                    sumW = 0
+                    sumI = 0
+                    for i in range(y , z + 1):
+                        sumW += lista.lista_numere[i][0]
+                        sumI += lista.lista_numere[i][1]
 
-                z = -1
-                aux = True
-                while aux:
-                    try:
-                        z = int(input("Insert the index where the deletion should end: "))
-
-                        if z >= y and z <= len(lista.lista_numere):
-                            aux = False
-                    except:
-                        print("Input invalid or out of range, Please try again")
-                
-                sumW = 0
-                sumI = 0
-                for i in range(y , z + 1):
-                    unpacked = lista.unpackNumber(lista.lista_numere[i])
-                    sumW += unpacked[0]
-                    if len(unpacked) == 2:
-                        sumI += unpacked[1]
-
-                print(f"\nThe sum is: {sumW} {sumI}i\n")
+                    print(f"\nThe sum is: {sumW} {sumI}i\n")
+                else:
+                    print("The list has no numbers currently")
             
             case 11:
-                y = -1
-                aux = True
-                while aux:
-                    try:
-                        y = int(input("Insert the index where the deletion should start: "))
+                if len(lista.lista_numere) > 0:
+                    y = getIndex(0, len(lista.lista_numere))
+                    z = getIndex(y, len(lista.lista_numere))
 
-                        if y >= 0 and y <= len(lista.lista_numere):
-                            aux = False
-                    except:
-                        print("Input invalid or out of range, Please try again")
+                    num1 = lista.lista_numere[y]
+                    for i in range(y + 1 , z + 1):
+                        num2 = lista.lista_numere[i]
+                        
+                        whole = (num1[0] * num2[0] - num1[1] * num2[1])
+                        imaginary = (num1[0] * num2[1] + num1[1] * num2[0])
 
-                z = -1
-                aux = True
-                while aux:
-                    try:
-                        z = int(input("Insert the index where the deletion should end: "))
+                        multiplier = [whole, imaginary]
 
-                        if z >= y and z <= len(lista.lista_numere):
-                            aux = False
-                    except:
-                        print("Input invalid or out of range, Please try again")
-                
-                multiplier = lista.lista_numere[y]
-                for i in range(y + 1 , z + 1):
-                    unpacked1 = lista.unpackNumber(multiplier)
-                    unpacked2 = lista.unpackNumber(lista.lista_numere[i])
-                    
-                    whole = (unpacked1[0] * unpacked1[0] - unpacked1[1] * unpacked2[1])
-                    imaginary = (unpacked1[0] * unpacked2[1] - unpacked1[1] * unpacked2[0])
-
-                    multiplier = f"{whole}+{imaginary}i"
-
-                print(f"\nThe multiplication is: {multiplier}\n")
-
+                    print(f"\nThe multiplication is: {multiplier}\n")
+                else:
+                    print("The list has no numbers currently")
             case 12:
-                y = -1
-                aux = True
-                while aux:
-                    try:
-                        y = int(input("Insert the index where the deletion should start: "))
+                if len(lista.lista_numere) > 0:
+                    y = getIndex(0, len(lista.lista_numere))
+                    z = getIndex(y, len(lista.lista_numere))
+            
+                    list_to_sort = []
+                    for k , v in lista.lista_numere.items():
+                        list_to_sort.append(v)
 
-                        if y >= 0 and y <= len(lista.lista_numere):
-                            aux = False
-                    except:
-                        print("Input invalid or out of range, Please try again")
+                    list_to_sort = list_to_sort[y:z + 1]
+                    
+                    for i in range(y , z):
+                        for j in range(i , z + 1):
+                            elem1 = list_to_sort[i]
+                            elem2 = list_to_sort[j]
+                            if elem1[1] > elem2[1]:
+                                list_to_sort[i], list_to_sort[j] = list_to_sort[j], list_to_sort[i]
 
-                z = -1
-                aux = True
-                while aux:
-                    try:
-                        z = int(input("Insert the index where the deletion should end: "))
-
-                        if z >= y and z <= len(lista.lista_numere):
-                            aux = False
-                    except:
-                        print("Input invalid or out of range, Please try again")
-                
-                list_to_sort = []
-                for k , v in lista.lista_numere.items():
-                    list_to_sort.append(v)
-
-                list_to_sort = list_to_sort[y:z + 1]
-                
-                for i in range(y , z):
-                    for j in range(i , z + 1):
-                        elem1 = lista.unpackNumber(list_to_sort[i])
-                        elem2 = lista.unpackNumber(list_to_sort[j])
-                        if elem1[1] > elem2[1]:
-                            list_to_sort[i], list_to_sort[j] = list_to_sort[j], list_to_sort[i]
-
-                print(f"\n{list_to_sort}\n")
-
+                    print(f"\n{list_to_sort}\n")
+                else:
+                    print("The list has no numbers currently")
             case 13:
-                lista.lista_numere = lista.filterPrimeNums(lista_curenta=lista.lista_numere , lista=lista)
-                print(f"\n{lista.lista_numere}\n")
+                print(lista.lista_numere)
+                lista.list_stack[stack_index] = lista.lista_numere.copy()
+                stack_index += 1
+
+                filtered_list = lista.filterPrimeNums(lista_curenta=lista.lista_numere , lista=lista)
+                print(f"\n{filtered_list}\n")
+            case 14:
+                print(lista.lista_numere)
+                lista.list_stack[stack_index] = lista.lista_numere.copy()
+                stack_index += 1
+
+                x = getCase()
+                y = getNumber()
+                filtered_list = lista.filterCondition(lista_curenta=lista.lista_numere , lista=lista, case=x, number=y)
+                print(f"\n{filtered_list}\n")
+            #Iteratie 3
+            case 15:
+                stack_index -= 1
+                lista.lista_numere = lista.list_stack[stack_index]
             case 0:
                 running = False
 
     app.print_exit()
-
 main()
