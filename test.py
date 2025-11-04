@@ -91,13 +91,16 @@ def test_filterCondition():
     complex_element = create_complex(10,0)
     set_list(addAtIndex(lista_curenta=get_list(), item=complex_element, index = 0))
     assert filterCondition(lista_curenta=get_list(), case=2,number=10) == [{'real': 7, 'imag': 8}]
-
+    
 #Execution Block
-test_filterPrimeNums()
-test_isPrime()
-test_addAtTheEnd()
-test_addAtIndex()
-test_deleteIndex()
-test_deleteInterval()
-test_replaceItem()
-test_filterCondition()
+def test_all():
+    test_filterPrimeNums()
+    test_isPrime()
+    test_addAtTheEnd()
+    test_addAtIndex()
+    test_deleteIndex()
+    test_deleteInterval()
+    test_replaceItem()
+    test_filterCondition()
+    
+test_all()

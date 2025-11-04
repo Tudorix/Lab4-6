@@ -129,17 +129,13 @@ def run():
                     print("The list has no numbers currently")
             case 12:
                 if get_list_len() > 0:
-                    y = getIndex(0, get_list_len())
-                    z = getIndex(y, get_list_len())
-            
                     list_to_sort = get_list().copy()
-                    list_to_sort = list_to_sort[y:z + 1]
                     
                     for i in range(y , z):
                         for j in range(i , z + 1):
                             elem1 = list_to_sort[i]
                             elem2 = list_to_sort[j]
-                            if get_real(elem1) > get_real(elem2):
+                            if get_imag(elem1) < get_imag(elem2):
                                 list_to_sort[i], list_to_sort[j] = list_to_sort[j], list_to_sort[i]
 
                     print(f"\n{list_to_sort}\n")
