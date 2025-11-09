@@ -35,6 +35,15 @@ def undo():
     global lista_numere
     lista_numere = list_stack.pop()
     
+def undo_batch(lista_curenta, args):
+    """
+    Seteaza lista de numere la ultima valoare din stiva
+    """
+    if len(args) != 0: raise ValueError
+    if len(list_stack) > 0:
+        return list_stack.pop()
+    return []
+    
 def get_list():
     """
     Returneaza lista de numere complexe
@@ -75,4 +84,3 @@ def set_imag(z, value):
     @param z - dict
     """
     z["imag"] = value
-

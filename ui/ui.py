@@ -1,5 +1,5 @@
-from methods import *
-from complex import *
+from utils.methods import *
+from domain.complex import *
 
 def run():
     print_initial()
@@ -152,6 +152,7 @@ def run():
             #Iteratie 3
             case 15:
                 undo()
+                print("Undo successful!")
             case 0:
                 running = False
             case _:
@@ -188,7 +189,7 @@ def print_menu():
     print("10. Show the sum of the numbers in the range")
     print("11. Show the multiplication of the numbers in the range")
     print("12. Show a sorted range of numbers")
-    print("13. Filter out all numbers with a whole prime number")
+    print("13. Filter out all numbers with a real prime number")
     print("14. Filter out all numbers that have the absolute value <,=,> that another number")
     print("15. Undo")
     print("0. Close app")
